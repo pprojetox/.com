@@ -1,0 +1,218 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400&display=swap'); 
+html, body {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    font-family: 'Poppins', sans-serif;
+}
+
+header {
+    background-color: #ffffff; 
+    color: #020000;
+    padding: 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 3px solid #000000;
+}
+
+.logo {
+    display: flex;
+    align-items: center; 
+}
+
+.logo-image {
+    width: 50px; 
+    height: 50px;
+    border-radius: 50%; 
+    border: 2px solid #000000;
+    margin-right: 10px; 
+}
+
+.logo-text {
+    font-size: 24px; 
+    color: rgb(0, 0, 0); 
+
+    font-weight: bold; 
+}
+
+nav .menu-options {
+    display: flex;
+    gap: 20px;
+}
+
+.nav-item {
+     background-color: black;
+    color: #ffffff;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    font-size: 22px;
+    text-decoration: none;
+
+}
+
+.dropbtn {
+   background-color: #000000;
+   color: white;
+   padding: 10px;
+   font-size: 16px;
+   border: none;
+   cursor: pointer;
+}
+
+.dropbtn:hover, .dropbtn:focus {
+   background-color: #000000;
+   color: #002af9;
+}
+
+.dropdown {
+   position: relative;
+   display: inline-block;
+}
+
+.dropdown-content {
+   display: none;
+   position: absolute;
+   background-color: #f1f1f1;
+   min-width: 160px;
+   box-shadow: 0px 8px rgba(0,0,0,0.2);
+   z-index: 1;
+}
+
+.dropdown-content a {
+   color: black;
+   padding: 12px 16px;
+   text-decoration: none;
+   display: block;
+}
+
+.dropdown-content a:hover {background-color: #ddd}
+
+.show {display:block;}
+
+.hero {
+    height: auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-image:url("imagem/wp8255803-football-4k-wallpapers.jpg");
+    background-size: cover;
+    background-position:center; 
+    min-height:400px; 
+}
+
+.hero-content {
+    position:absolute; 
+    top :40%; 
+    left :5%; 
+    color:#fff; 
+}
+
+.future-games-carousel {
+     position:absolute; 
+     top :60%;
+     left :50%; 
+     transform :translateX(-50%); 
+     width :300px;  
+     height:auto;  
+     overflow:hidden; 
+     border-radius :10px; 
+     box-shadow :0px4px rgba(0,0,0,0.2);
+}
+
+.future-game-item {
+     display:none;  
+     padding :10px; 
+     border-radius :10px;  
+     background-color:#fff;  
+     box-shadow :0px4px rgba(0,0,0,0.2);
+}
+
+.future-game-item.active {
+     display:block;  
+}
+
+.news {
+     padding :20px;  
+}
+
+.news-grid {
+     display:inline-flex;  
+     flex-wrap :wrap;  
+     justify-content:center;  
+}
+
+.news-item {
+     width :300px;  
+     margin :10px;  
+     padding :10px;  
+     border-radius :10px;  
+     box-shadow :0px4px8px rgba(0,0,0,0.2);  
+     box-sizing:border-box;  
+     background-color:#fff; /* Fundo branco para destaque */
+     transition :transform .3s ease, box-shadow .3s ease ;
+}
+
+.news-item:hover {
+     transform :scale(1.05); /* Efeito de hover suave */
+     box-shadow :0px8px16px rgba(0,0,0,.3); /* Sombra mais destacada */
+}
+
+/* Correção do tamanho das imagens dentro das notícias */
+.news-item img {
+     max-width :100%;
+     height:auto ;
+     border-radius :5px ;
+     object-fit :cover ; /* Mantém a proporção da imagem */
+     margin-bottom :10px ;
+}
+
+footer {
+     background-color:#333 ; 
+     color:#fff ; 
+     text-align:center ; 
+     padding:.5rem ; 
+}
+
+.footer-links a {
+     color:#ffffff ; 
+     text-decoration:none ;
+     margin-right :15px ;
+}
+
+.footer-links a:hover {
+     text-decoration :underline ; 
+}
+
+@media (max-width :768px) {
+     .hero-content h1 {font-size :24px ;}
+     
+     .hero-content p {font-size :16px ;}
+     
+     .news-grid {flex-direction :column ;align-items:center ;}
+}
+.ola{
+     
+     border-radius: 15px;
+     
+          background-color: 
+          #000000; /* Cor de fundo */
+          color: rgb(255, 255, 255); /* Cor do texto */
+          padding: 19px 22px ; /* Espaçamento interno */
+     /* Sem borda */
+          border-radius: 5px; /* Bordas arredondadas */
+          font-size: 14px; /* Tamanho da fonte */
+          cursor: pointer; /* Cursor em forma de mão */
+          transition: background-color 0.3s ease, transform 0.3s ease; /* Transições suaves */
+          font-family:Verdana, Geneva, Tahoma, sans-serif ;
+}
+
+.ola:hover {
+     background-color: #000149; /* Cor ao passar o mouse */
+     transform: scale(1.05); /* Aumenta levemente o tamanho ao passar o mouse */
+ }
+
+ .ola:active {
+     padding: 15px;
+     transform: scale(0.95); /* Reduz levemente o tamanho ao clicar */
+ }

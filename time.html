@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Projeto X - Chatbot FAETEC</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600&display=swap" rel="stylesheet">
+    <style>
+        /* Estilos existentes */
+    </style>
+</head>
+<body>
+    <div class="background-image"></div>
+    <div class="chat-container">
+        <div class="chat-header">
+            <div>
+                <img src="imagem/logo.avif" alt="Logo FAETEC" class="logo">
+                <h2>Veja a situação do seu time</h2>
+            </div>
+            <button class="back-button" onclick="window.history.back();">Voltar</button>
+        </div>
+
+        <section class="chat-section">
+            <div class="message bot-message">Digite seu time, e veja as últimas notícias sobre ele!</div>
+            <div class="chat-box" id="chat-box"></div>
+            <input type="text" id="user-input" placeholder="Digite seu time do coração..." />
+            <button id="send-button">Enviar</button>
+        </section>
+    </div>
+
+    <script>
+        const teams = {
+            "vasco": {
+                "nextMatches": [
+                    { "opponent": "Cruzeiro", "date": "29 de setembro de 2024", "stadium": "Mineirão" },
+                    { "opponent": "Juventude", "date": "05 de outubro de 2024", "stadium": "São Januário" }
+                ],
+                "praise": "Gigante da colina! Vasco sempre surpreende!"
+            },
+            "flamengo": {
+                "nextMatches": [
+                    { "opponent": "Athletico Paranaense", "date": "29 de setembro de 2024", "stadium": "Maracanã" },
+                    { "opponent": "Bahia", "date": "05 de outubro de 2024", "stadium": "Casa Apostas" }
+                ],
+                "praise": "Mengo! O gigante rubro-negro!"
+            },
+            "botafogo": {
+                "nextMatches": [
+                    { "opponent": "Grêmio", "date": "28 de setembro de 2024", "stadium": "Nilton Santos" },
+                    { "opponent": "Athletico Paranaense", "date": "05 de outubro de 2024", "stadium": "Ligga Arena" }
+                ],
+                "praise": "O Glorioso, sempre na frente!"
+            },
+            "palmeiras": {
+                "nextMatches": [
+                    { "opponent": "Atlético Mineiro", "date": "28 de setembro de 2024", "stadium": "Brinco de Ouro" },
+                    { "opponent": "RB Bragantino", "date": "05 de outubro de 2024", "stadium": "Nabi Abi Chedid" }
+                ],
+                "praise": "Avanti Palestra!"
+            },
+            "atlético goianiense": {
+                "nextMatches": [
+                    { "opponent": "Fluminense", "date": "29 de setembro de 2024", "stadium": "Antônio Accioly" },
+                    { "opponent": "Criciúma", "date": "03 de outubro de 2024", "stadium": "Heriberto Hülse" }
+                ],
+                "praise": "Dragão Goianiense, força e garra!"
+            },
+            "criciúma": {
+                "nextMatches": [
+                    { "opponent": "Grêmio", "date": "25 de setembro de 2024", "stadium": "Arena do Grêmio" },
+                    { "opponent": "Bahia", "date": "29 de setembro de 2024", "stadium": "Casa Apostas" }
+                ],
+                "praise": "Tigre Catarinense, sempre lutador!"
+            },
+            "atlético mineiro": {
+                "nextMatches": [
+                    { "opponent": "Palmeiras", "date": "28 de setembro de 2024", "stadium": "Brinco de Ouro" },
+                    { "opponent": "Vitória", "date": "05 de outubro de 2024", "stadium": "Arena MRV" }
+                ],
+                "praise": "Galo forte e vingador!"
+            },
+            "fluminense": {
+                "nextMatches": [
+                    { "opponent": "Atlético Goianiense", "date": "29 de setembro de 2024", "stadium": "Antônio Accioly" },
+                    { "opponent": "Cruzeiro", "date": "03 de outubro de 2024", "stadium": "Maracanã" }
+                ],
+                "praise": "O Tricolor das Laranjeiras, sempre com raça!"
+            },
+            "corinthians": {
+                "nextMatches": [
+                    { "opponent": "São Paulo", "date": "29 de setembro de 2024", "stadium": "Morumbi" },
+                    { "opponent": "Internacional", "date": "05 de outubro de 2024", "stadium": "Neo Química Arena" }
+                ],
+                "praise": "Timão, campeão dos campeões!"
+            },
+            "grêmio": {
+                "nextMatches": [
+                    { "opponent": "Criciúma", "date": "25 de setembro de 2024", "stadium": "Arena do Grêmio" },
+                    { "opponent": "Botafogo", "date": "28 de setembro de 2024", "stadium": "Nilton Santos" }
+                ],
+                "praise": "Imortal, sempre na briga!"
+            },
+            "santos": {
+                "nextMatches": [
+                    { "opponent": "São Paulo", "date": "25 de setembro de 2024", "stadium": "Vila Belmiro" },
+                    { "opponent": "Cruzeiro", "date": "29 de setembro de 2024", "stadium": "Vila Belmiro" }
+                ],
+                "praise": "Santos Futebol Clube, sempre gigante!"
+            }
+        };
+    
+        function getTeamInfo() {
+            const userInput = document.getElementById('user-input').value.trim().toLowerCase();
+            const chatBox = document.getElementById('chat-box');
+    
+            // Limpa as mensagens anteriores
+            chatBox.innerHTML = '';
+    
+            // Exibe a mensagem de "Aguarde" e depois os dados após 2 segundos
+            chatBox.innerHTML += `<div class="message bot-message">Aguarde enquanto buscamos as informações...</div>`;
+            chatBox.scrollTop = chatBox.scrollHeight;
+    
+            setTimeout(() => {
+                if (teams[userInput]) {
+                    const team = teams[userInput];
+                    const praiseMessage = `<div class="message bot-message">${team.praise}</div>`;
+                    const matchMessage = `<div class="message bot-message">Próximos jogos:</div>`;
+    
+                    chatBox.innerHTML += praiseMessage;
+                    chatBox.innerHTML += matchMessage;
+    
+                    team.nextMatches.forEach(match => {
+                        chatBox.innerHTML += `<div class="message bot-message">${match.opponent} - ${match.date} - ${match.stadium}</div>`;
+                    });
+                } else {
+                    chatBox.innerHTML += `<div class="message bot-message">Time não encontrado. Por favor, digite um nome válido.</div>`;
+                }
+    
+                chatBox.scrollTop = chatBox.scrollHeight;
+                document.getElementById('user-input').value = '';
+            }, 2000); // 2 segundos de atraso
+        }
+    
+        document.getElementById('send-button').addEventListener('click', getTeamInfo);
+        document.getElementById('user-input').addEventListener('keypress', function (e) {
+            if (e.key === 'Enter') {
+                getTeamInfo();
+            }
+        });
+    </script>
+    
+    </script>
+    <style>
+          * {
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Montserrat', Arial, sans-serif;
+            background-color: #f0f0f0;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .background-image {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: url("imagem/maracana-4.jpg");
+            background-size: cover;
+            background-position: center;
+            filter: blur(5px);
+            z-index: 1;
+        }
+
+        .chat-container {
+            background-color: rgba(255, 255, 255, 0.9);
+            border-radius: 10px;
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.2);
+            width: 500px;
+            max-width: 90%;
+            position: relative;
+            z-index: 2;
+            overflow: hidden;
+        }
+
+        .chat-header {
+            background-color: #000000; /* Verde */
+            color: white;
+            padding: 15px;
+            border-radius: 10px 10px 0 0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+        }
+
+        .chat-header .logo {
+            height: 40px;
+            margin-right: 10px;
+            border-radius: 50%;
+        }
+
+        .chat-header h2 {
+            margin: 0;
+            font-size: 24px;
+        }
+
+        .back-button {
+            background-color: #ffffff; /* Amarelo */
+            color: #000000;
+            border: none;
+            padding: 10px 15px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 14px;
+            text-transform: uppercase;
+            transition: background-color 0.3s, transform 0.2s;
+        }
+
+        .back-button:hover {
+            background-color: #ffffff;
+            transform: translateY(-2px);
+        }
+
+        .chat-box {
+            padding: 15px;
+            height: 350px;
+            overflow-y: auto;
+            border: 1px solid #ccc;
+            border-radius: 0 0 10px 10px;
+            font-size: 16px;
+            line-height: 1.5;
+            background-color: #fafafa;
+            box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .message {
+            margin: 15px 0;
+            padding: 10px;
+            border-radius: 5px;
+        }
+
+        .bot-message {
+            background-color: #e8f5e9; /* Verde claro */
+            text-align: left;
+        }
+
+        .user-message {
+            background-color: #000000; /* Verde */
+            color: white;
+            text-align: right;
+        }
+
+        input[type="text"] {
+            width: calc(100% - 100px);
+            padding: 12px;
+            border: 1px solid #fffcfc;
+            border-radius: 5px;
+            font-size: 16px;
+        }
+
+        button {
+            padding: 12px 20px;
+            background-color: #000000; /* Verde */
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+
+        button:hover {
+            background-color: #000000; /* Verde escuro */
+        }
+    </style>
+</body>
+</html>
